@@ -10,7 +10,7 @@
 #   1. Verifies it is running inside Termux
 #   2. Requests/verifies storage permission
 #   3. Installs llama.cpp (llama-cli) if missing
-#   4. Downloads the Qwen3.5-0.8B-Q4_K_M GGUF model directly into ~/models
+#   4. Downloads the MiniCPM5-1B-Claude-Opus-Fable5-Thinking-Q8_0.GGUF model directly into ~/models
 #   5. Verifies the downloaded model file
 #   6. Installs run_ai.sh into ~/.shellcrafter
 #   7. Creates the "runqwen" command in $PREFIX/bin
@@ -45,9 +45,9 @@ fi
 readonly REPO_NAME="ShellCrafter/ai-inference"
 readonly MODELS_DIR="${HOME}/models"
 readonly CONFIG_DIR="${HOME}/.shellcrafter"
-readonly MODEL_FILE="Qwen3.5-0.8B-Q4_K_M.gguf"
+readonly MODEL_FILE="MiniCPM5-1B-Claude-Opus-Fable5-Thinking-Q8_0.gguf"
 readonly MODEL_PATH="${MODELS_DIR}/${MODEL_FILE}"
-readonly MODEL_URL="https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/main/Qwen3.5-0.8B-Q4_K_M.gguf?download=true"
+readonly MODEL_URL="https://huggingface.co/GnLOLot/MiniCPM5-1B-Claude-Opus-Fable5-Thinking-GGUF"
 # Approximate expected size in bytes (533 MB). Used as a sanity floor, not an exact match,
 # since HF may serve slightly different byte counts across mirrors/CDN nodes.
 readonly MODEL_MIN_BYTES=400000000
@@ -176,7 +176,7 @@ create_models_dir() {
 # Step 5: Download the model (skips if already present & valid)
 # --------------------------------------------------------------------------
 download_model() {
-    step "Downloading Qwen3.5 0.8B (Q4_K_M) model"
+    step "Downloading MiniCPM5-1B-Claude-Opus-Fable5-Thinking (Q8_0) model"
 
     if verify_model_file "silent"; then
         ok "Model already present and verified: ${MODEL_PATH}"
@@ -184,9 +184,9 @@ download_model() {
         return 0
     fi
 
-    info "Source: unsloth/Qwen3.5-0.8B-GGUF"
+    info "Source: GnLOLot/MiniCPM5-1B-Claude-Opus-Fable5-Thinking-GGUF"
     info "Target: ${MODEL_PATH}"
-    info "This is a one-time download (~530 MB). The model will be stored"
+    info "This is a one-time download (~1.15 GB). The model will be stored"
     info "locally and used for ALL future runs — no internet required afterwards."
     printf "\n"
 
@@ -309,7 +309,7 @@ print_success() {
     printf "  ║           ✔  INSTALLATION COMPLETE                     ║\n"
     printf "  ╚═══════════════════════════════════════════════════════╝\n"
     printf "${C_RESET}\n"
-    printf "  ${C_BOLD}Model:${C_RESET}   Qwen3.5 0.8B (Q4_K_M)\n"
+    printf "  ${C_BOLD}Model:${C_RESET}   MiniCPM5-1B-Claude-Opus-Fable5-Thinking (Q8_0)\n"
     printf "  ${C_BOLD}Path:${C_RESET}    %s\n" "$MODEL_PATH"
     printf "  ${C_BOLD}Engine:${C_RESET}  llama.cpp\n\n"
     printf "  You can now disconnect from the internet permanently.\n"
