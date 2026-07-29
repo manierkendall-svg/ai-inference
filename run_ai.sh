@@ -2,7 +2,7 @@
 #
 # ShellCrafter :: ai-inference
 # run_ai.sh — launched via the `runqwen` command.
-# Runs the locally-installed Qwen3.5 0.8B GGUF model with llama.cpp.
+# Runs the locally-installed GnLOLot/MiniCPM5-1B-Claude-Opus-Fable5-Thinking-GGUF model with llama.cpp.
 # 100% offline. No downloads, no network calls, ever.
 
 set -u
@@ -30,7 +30,7 @@ fi
 # Constants
 # --------------------------------------------------------------------------
 readonly MODELS_DIR="${HOME}/models"
-readonly MODEL_FILE="Qwen3.5-0.8B-Q4_K_M.gguf"
+readonly MODEL_FILE="MiniCPM5-1B-Claude-Opus-Fable5-Thinking-Q8_0.gguf"
 readonly MODEL_PATH="${MODELS_DIR}/${MODEL_FILE}"
 
 # --------------------------------------------------------------------------
@@ -80,16 +80,16 @@ select_mode() {
         1)
             printf "\n${C_GREEN}➤ Launching in Instant mode...${C_RESET}\n\n"
             exec llama-cli -m "$MODEL_PATH" \
-                --chat-template-kwargs '{"enable_thinking":false}'
+                --chat-template-kwargs '{"enable_thinking":true}'
             ;;
         2)
             printf "\n${C_MAGENTA}➤ Launching in Thinking mode...${C_RESET}\n\n"
             exec llama-cli -m "$MODEL_PATH"
             ;;
         *)
-            printf "\n${C_YELLOW}⚠ Invalid choice '%s'. Defaulting to Instant ⚡${C_RESET}\n\n" "$choice"
+            printf "\n${C_YELLOW}⚠ Invalid choice '%s'. Defaulting to Thinking ⚡${C_RESET}\n\n" "$choice"
             exec llama-cli -m "$MODEL_PATH" \
-                --chat-template-kwargs '{"enable_thinking":false}'
+                --chat-template-kwargs '{"enable_thinking":true}'
             ;;
     esac
 }
